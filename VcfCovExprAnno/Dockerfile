@@ -1,7 +1,7 @@
 FROM conda/miniconda3:latest
 LABEL maintainer="xizhihui <zhihui_xi@qq.com>"
-LABEL description="Docker image for annotation in neoantigen prediction pipeline"
-LABEL lastModified="2019-06-08"
+LABEL description="Docker image for adding read count (coverage) data and expression data to vcf"
+LABEL lastModified="2019-06-06"
 
 ARG author="xizhihui"
 USER root
@@ -34,9 +34,9 @@ RUN chmod 775 /usr/bin/annotate \
 
 # add user
 RUN groupadd -r -g 1000 ${author} \
-&& useradd -r -g ${author} -u 1000 ${author} \
-&& mkdir /home/${author} \
-&& ln -s /usr/bin/java /bin/ \
-&& chown -R ${author}:${author} /home/${author}
+    && useradd -r -g ${author} -u 1000 ${author} \
+    && mkdir /home/${author} \
+    && ln -s /usr/bin/java /bin/ \
+    && chown -R ${author}:${author} /home/${author}
 WORKDIR /home/${author}
 USER ${author}

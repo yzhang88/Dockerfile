@@ -1,9 +1,4 @@
-<!--
- * @Author: xizhihui <zhihui_xi@qq.com>
- * @Date: 2019-06-06 08:10:25
- * @LastEditTime: 2019-06-06 08:10:25
- * @Description: Description here
- -->
+
 ## VcfCovExprAnno
 
 Using [VCF Annotation Tools](https://vatools.readthedocs.io/en/latest/index.html) to add coverage(read count) and expression data to a vcf file from bam file or expression table respectively. Some options are discarded from VAtools, you can modify the `annotate` to add in.
@@ -22,11 +17,13 @@ Transcript Expression | TX
 * build image
 
 ```shell
-docker build --build-arg author=xizhihui -t xizhihui/vcfcovexpranno:20190606 .
+# $USER 指代你在服务器的用户名，不改也可以
+docker build --build-arg author=$USER -t $USER/vcfcovexpranno:20190606 .
 ```
 
-* annotatation
+* annotation
 
 ```shell
-annotate -h
+docker run --rm -u $USER $USER/vcfcovexpranno:20190606 annotate -h
 ```
+
