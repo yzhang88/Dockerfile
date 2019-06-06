@@ -1,0 +1,123 @@
+#!/bin/bash
+set -e
+
+#################################################################
+# author: xizhihui <zhihui_xi@qq.com>
+# description: add expression data and coverage data to vcf file
+# last modified: 2019/05/15
+# input: bam file and vcf file
+# output: annotated vcf file
+#################################################################
+
+function PrintUsage() {
+	echo "Usage: add expression data and coverage data to vcf file."
+	echo "`basename $0` -i in.vcf -t annotatetype -d datatype -n sample -o out.vcf [-b in.bam -f fasta] [-e in.exer -s software]"
+	echo "generic options:"
+	printf "\t%-35s\t%s\n" "-i vcffile" "the input vcf file"
+	printf "\t%-35s\t%s\n" "-t {expression, coverage}" "annotatation type. If type is coverage, then -b, -f should be provided. If type is expression, -e should be provided."
+	printf "\t%-35s\t%s\n" "-d {RNA,DNA,transcript,gene}" "If type is coverage, use RNA or DNA to indicate the sequence data type. If tyep is expression, use transcript or gene to indicate the expression data type."
+	printf "\t%-35s\t%s\n" "-n sample" "the sample name in vcf file to be annotated."
+	printf "\t%-35s\t%s\n" "-o vcffile" "the output file"
+
+	echo "coverage options:"
+	printf "\t%-35s\t%s\n" "-b bamfile" "the input bam file."
+	printf "\t%-35s\t%s\n" "-f" "the reference fasta file used for bam file."
+
+	echo "expression options:"
+	printf "\t%-35s\t%s\n" "-e exprfile" "the input expr table. (all.counts.exp.txt from RNAseq workflow)"
+	printf "\t%-35s\t%s\n" "-s software" "the software for calculate expression data, can be kallisto, cufflinks or stringtie."
+}
+
+function logging() {
+	type=$1
+	info=$2
+	echo "[ ${type} `date +'%Y-%m-%d %T'` ] ${info} "
+}
+
+
+in_vcf=""
+out_vcf=""
+annotatetype=""
+name=""
+datatype=""
+
+in_bam=""
+fasta=""
+
+in_expr=""
+software=""
+
+while getopts i:t:d:n:o:b:f:e:s:h opts; do
+	case ${opts} in
+		i) in_vcf=$OPTARG ;;
+		t) annotatetype=$OPTARG ;;
+		d) datatype=$OPTARG ;;
+		n) name=$OPTARG ;;
+		o) out_vcf=$OPTARG ;;
+		b) in_bam=$OPTARG ;;
+		f) fasta=$OPTARG ;;
+		e) in_expr=$OPTARG ;;
+		s) software=$OPTARG ;;
+		h) PrintUsage; exit 0 ;;
+		*) 
+			logging "ERROR" "Argument invalid."
+			PrintUsage
+			exit 1
+			;;
+	esac
+done
+
+if [[ ! -f "${in_vcf}" || -z "${annotatetype}" || -z "${name}" || -z "${out_vcf}" ]]; then
+	logging "ERROR" "Required arguments should all be provided. Please check."
+	exit 1
+fi
+
+outputdir=$( readlink -f "${out_vcf}" )
+outputdir=$( dirname "${outputdir}" )
+prefix=$( basename "${out_vcf}" .vcf )
+
+if [[ "${annotatetype}" == "coverage" ]]; then
+	if [[ ! -f "${in_bam}" || ! -f "${fasta}" ]]; then
+		logging "ERROR" "The bam file or fasta file is invalid or not existed."
+		exit 1
+	fi
+	if [[ "${datatype}" != "RNA" && "${datatype}" != "DNA" ]]; then
+		logging "ERROR" "The datatype for coverage annotation can only be DNA or RNA."
+		exit 1
+	fi
+
+	decompose_vcf="${outputdir}/${prefix}.decomp.vcf"
+	snv_site_list="${outputdir}/${name}_bam_readcount_snv.tsv"
+	indel_site_list="${outputdir}/${name}_bam_readcount_snv.tsv"
+	snv_count="${outputdir}/${name}_snv_count"
+	indel_count="${outputdir}/${name}_snv_indel"
+	snv_count_vcf="${outputdir}/${name}_snv.vcf"
+	final_vcf="${outputdir}/${prefix}.count.vcf" # indel_count_vcf
+
+	vt decompose -s "${in_vcf}" -o "${decompose_vcf}"
+	python bam_readcount_helper.py "${decompose_vcf}" "${name}" "${fasta}" "${in_bam}" "${outputdir}"
+	# create: outputdir/name_bam_readcount_[snv,indel].tsv
+	bam-readcount -f "${fasta}" -l "${snv_site_list}" "${in_bam}" -i -b 20 > "${snv_count}"
+	bam-readcount -f "${fasta}" -l "${indel_site_list}" "${in_bam}" -i -b 20 > "${indel_count}"
+	vcf-readcount-annotator "${decompose_vcf}" "${snv_count}" "${datatype}" -s "${name}" -t snv -o "${snv_count_vcf}"
+	vcf-readcount-annotator "${snv_count_vcf}" "${indel_count}" "${datatype}" -s "${name}" -t indel -o "${final_vcf}"
+	
+	mv "${final_vcf}" "${out_vcf}"
+	rm "${decompose_vcf}" "${snv_site_list}" "${indel_site_list}" "${snv_count}" "${indel_count}" "${snv_count_vcf}"
+
+elif [[ "${annotatetype}" == "expression" ]]; then
+	if [[ ! -f "${in_expr}" || $( echo "kallisto stringtie cufflinks" | grep "${software}" | wc -l ) == 0 ]]; then
+		logging "ERROR" "The expression file or software is invalid. Please check."
+	fi
+	if [[ "${datatype}" != "gene" && "${datatype}" != "transcript" ]]; then
+		logging "ERROR" "The datatype for expression annotation can only be gene or transcript."
+	fi
+
+	vcf-expression-annotator "${in_vcf}" "${in_expr}" "${software}" "${datatype}" -o "${out_vcf}" -s "${name}" --ignore-transcript-version
+
+else
+	logging "ERROR" "annotatetype can only be coverage or expression."
+	exit 1
+fi
+
+exit 0
