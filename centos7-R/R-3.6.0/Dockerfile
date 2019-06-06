@@ -1,5 +1,5 @@
 FROM centos:7
-LABEL R_Version="3.5.3"
+LABEL R_Version="3.6.0"
 LABEL github="https://github.com/hellobioinfo"
 LABEL maintainer="matthewhakka@gmail.com"
 WORKDIR /app
@@ -8,8 +8,8 @@ WORKDIR /app
 RUN yum groupinstall "Development Tools" -y && yum install -y zlib-devel bzip2-devel xz-devel pcre-devel libcurl-devel java-1.8.0-openjdk-devel && yum clean all
 
 # download R 3.5.3 and install
-RUN curl -C - -o R3.5 https://cran.r-project.org/src/base/R-3/R-3.5.3.tar.gz && tar -zxf /app/R3.5 && rm -rf /app/R3.5
-WORKDIR /app/R-3.5.3
+RUN curl -C - -o R3.6 https://cran.r-project.org/src/base/R-3/R-3.6.0.tar.gz && tar -zxf /app/R3.6 && rm -rf /app/R3.6
+WORKDIR /app/R-3.6.0
 RUN ./configure --with-x=no --with-readline=no && make && make install
 
 # select CRAN mirror
