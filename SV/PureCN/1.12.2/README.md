@@ -1,6 +1,8 @@
 ### PureCN  
-#### Download from DockerHub  
+#### Download from DockerHub 
+```bash
 docker pull matthewee/purecn:1.12.2
+```
 #### R CRAN mirror
 https://mirrors.tuna.tsinghua.edu.cn/CRAN/
 #### Version Info
