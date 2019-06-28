@@ -10,5 +10,6 @@
 | [VcfCovExprAnno](./VcfCovExprAnno) | 为 `VCF` 文件注释深度、表达量、频率等信息 |
 | [SV](./SV) | 与结构变异(Structural Variation, SV)相关的软件/流程 |
 | [Microbiome](./Microbiome) | 微生物组相关软件/流程 |
+| [MultivariateAnalysis](./MultivariateAnalysis) | 多变量分析环境 |
 ### 其他事项
 * 欢迎将镜像上传到 [Docker-Hub](https://hub.docker.com/)
