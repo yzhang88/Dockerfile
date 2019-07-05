@@ -9,6 +9,7 @@
 | 目录/镜像 | 简介 |
 | --- | --- |
 | [centos7-R](./centos7-R) | 基于 `centos 7` 的 `R` 语言 |
+| [debian_stretch-R](./debian_stretch-R) | 基于 `debian-stretch` 的 `R` 语言 |
 | [VcfCovExprAnno](./VcfCovExprAnno) | 为 `VCF` 文件注释深度、表达量、频率等信息 |
 | [SV](./SV) | 与结构变异(Structural Variation, SV)相关的软件/流程 |
 | [Microbiome](./Microbiome) | 微生物组相关软件/流程 |
