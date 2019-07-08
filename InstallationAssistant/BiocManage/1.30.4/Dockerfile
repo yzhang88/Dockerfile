@@ -1,4 +1,4 @@
-FROM matthewee/r-centos7:R-3.5.3
+FROM matthewee/debian_stretch-r:3.6.0
 LABEL github="https://github.com/hellobioinfo"
 LABEL maintainer="matthewhakka@gmail.com"
 LABEL BiocManager=1.30.4
