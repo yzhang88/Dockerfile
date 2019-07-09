@@ -16,5 +16,6 @@
 | [MultivariateAnalysis](./MultivariateAnalysis) | 多变量分析环境 |
 | [InstallationAssistant](./InstallationAssistant) | 诸如BiocManager等协助安装R包环境 |
 | [Annotation](./Annotation) | 各种注释相关软件 |
+| [DNA-M](./DNA-M) | 与DNA甲基化测序相关分析 | 
 ### 其他事项
 * 欢迎将镜像上传到 [Docker-Hub](https://hub.docker.com/)
