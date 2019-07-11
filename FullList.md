@@ -1,10 +1,4 @@
 ### Full Image List  
-[BiocManager](./InstallationAssistant/BiocManage)  
-[bsseq](./DNA-M/bsseq/)
-[centos7-R](./centos7-R)  
-[clusterProfiler](./Annotation/clusterProfiler)  
 [debian_stretch-R](./debian_stretch-R)  
 [PCA](./MultivariateAnalysis/PCA)  
-[phyloseq](./Microbiome/phyloseq)  
-[PureCN](./SV/PureCN)  
 [VcfCovExprAnno](./VcfCovExprAnno/)  
