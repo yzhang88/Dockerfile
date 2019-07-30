@@ -11,5 +11,6 @@
 | [debian_stretch-R](./debian_stretch-R) | 基于 `debian-stretch` 的 `R` 语言，适合作为基础镜像安装R包。 |
 | [VcfCovExprAnno](./VcfCovExprAnno) | 为 `VCF` 文件注释深度、表达量、频率等信息 |
 | [MultivariateAnalysis](./MultivariateAnalysis) | 多变量分析(如PCA)环境 |
+| [RNA](./RNA) | 与RNA数据相关的分析 |
 ### 其他事项
 * 欢迎将镜像上传到 [Docker-Hub](https://hub.docker.com/)

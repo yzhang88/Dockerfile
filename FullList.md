@@ -1,4 +1,7 @@
 ### Full Image List  
-[debian_stretch-R](./debian_stretch-R)  
-[PCA](./MultivariateAnalysis/PCA)  
-[VcfCovExprAnno](./VcfCovExprAnno/)  
+| Image | Short description |  
+| --- | --- |  
+| [debian_stretch-R](./debian_stretch-R) | R on debian-stretch |  
+| [limma](./RNA/limma) | DEG(differentially expressed genes) analysis |  
+| [PCA](./MultivariateAnalysis/PCA) | PCA |   
+| [VcfCovExprAnno](./VcfCovExprAnno/) | VCF annotation |  
