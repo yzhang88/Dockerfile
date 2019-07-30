@@ -1,6 +1,6 @@
 FROM image:tag
 LABEL github="https://github.com/hellobioinfo"
-LABEL maintainer="matthewhakka@gmail.com"
+LABEL maintainer=""
 
-VOLUME /mnt
+RUN
 CMD ["bash"]
