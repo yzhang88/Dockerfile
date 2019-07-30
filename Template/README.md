@@ -5,9 +5,9 @@ description
 docker pull image:tag
 ```  
 
-#### CRAN mirror  
+#### R CRAN mirror  
 R CRAN mirror: https://mirrors.tuna.tsinghua.edu.cn/CRAN/
-#### Version Information
-| app | version |
-| --- | --- |
+#### App/Package List
+| app/pkg | version | show description |
+| --- | --- | --- |
 | 
