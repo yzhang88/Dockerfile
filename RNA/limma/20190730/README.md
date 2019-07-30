@@ -18,3 +18,6 @@ R CRAN mirror: https://mirrors.tuna.tsinghua.edu.cn/CRAN/
 | [org.Hs.eg.db](https://www.bioconductor.org/packages/release/data/annotation/html/org.Hs.eg.db.html) | 3.8.2 | Genome wide annotation for Human |
 | [org.Mm.eg.db](https://www.bioconductor.org/packages/release/data/annotation/html/org.Mm.eg.db.html) | 3.8.2 | Genome wide annotation for Mouse |
 | [org.Rn.eg.db](https://www.bioconductor.org/packages/release/data/annotation/html/org.Rn.eg.db.html) | 3.8.2 | Genome wide annotation for Rat |
+| [tidyverse](https://www.tidyverse.org/) | 1.2.1 | - |
+| [BiocManager](https://www.bioconductor.org/) | 1.30.4 | - |
+| [devtools](https://cran.r-project.org/web/packages/devtools/readme/README.html) | 2.1.0 | - |
