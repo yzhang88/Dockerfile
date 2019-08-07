@@ -12,5 +12,6 @@
 | [VcfCovExprAnno](./VcfCovExprAnno) | 为 `VCF` 文件注释深度、表达量、频率等信息 |
 | [MultivariateAnalysis](./MultivariateAnalysis) | 多变量分析(如PCA)环境 |
 | [RNA](./RNA) | 与RNA数据相关的分析 |
+| [BasicTools](./BasicTools) | 常用的比较基础的工具 |
 ### 其他事项
 * 欢迎将镜像上传到 [Docker-Hub](https://hub.docker.com/)

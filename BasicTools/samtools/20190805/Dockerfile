@@ -3,6 +3,7 @@ LABEL github="https://github.com/hellobioinfo"
 LABEL maintainer="matthewhakka@gmail.com"
 
 WORKDIR /App
+# install bedtools use apt-get
 RUN apt-get update && \
     apt-get install -y --no-install-recommends bzip2 \
 	autoconf \
@@ -18,12 +19,12 @@ RUN apt-get update && \
 	libncurses5-dev \
 	libperl-dev \
 	libgsl0-dev \
-	bedtools \
-	wget && \
-	wget  --no-check-certificate https://github.com/samtools/htslib/releases/download/1.9/htslib-1.9.tar.bz2 && \
-	wget --no-check-certificate https://github.com/samtools/bcftools/releases/download/1.9/bcftools-1.9.tar.bz2 && \
-	wget --no-check-certificate https://github.com/samtools/samtools/releases/download/1.9/samtools-1.9.tar.bz2 && \
-	tar -jxf htslib-1.9.tar.bz2 && \
+	bedtools && \
+    apt-get clean
+
+COPY *.tar.bz2 /App/
+
+RUN	tar -jxf htslib-1.9.tar.bz2 && \
 	tar -jxf bcftools-1.9.tar.bz2 && \
 	tar -jxf samtools-1.9.tar.bz2 && \
 	cd htslib-1.9 && \
@@ -38,8 +39,7 @@ RUN apt-get update && \
     ./configure --with-htslib=system && \
 	make && \
 	make install && \
-    apt-get clean && \
-	echo "LD_LIBRARY_PATH=/usr/local/lib/" >> ~/.bashrc && \
+	echo "export LD_LIBRARY_PATH=/usr/local/lib/" >> ~/.bashrc && \
 	cd /App && \
 	rm -rf *
 
