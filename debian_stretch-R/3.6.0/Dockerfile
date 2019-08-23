@@ -9,6 +9,7 @@ WORKDIR /App
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
 	wget \
+	vim \
 	build-essential \
 	gfortran \
 	libreadline-dev \
@@ -22,7 +23,9 @@ RUN apt-get update \
 	libxml2-dev \
 	default-jre \
 	libssl-dev \
-	&& apt-get clean
+	&& apt-get autoremove && \
+	apt-get clean && \
+	rm -rf /var/lib/apt/lists/*
 
 # Download and install R-3.6.0
 RUN wget https://cran.r-project.org/src/base/R-3/R-3.6.0.tar.gz \
@@ -31,7 +34,7 @@ RUN wget https://cran.r-project.org/src/base/R-3/R-3.6.0.tar.gz \
 	&& ./configure \
 	&& make \
 	&& make install \
-    && cd /App && rm -rf R-3.6.0
+    && cd /App && rm -rf /App/*
 
 # select CRAN mirror
 RUN echo options\(\"repos\" = c\(CRAN=\"https://mirrors.tuna.tsinghua.edu.cn/CRAN/\"\)\) >> ~/.Rprofile
