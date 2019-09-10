@@ -3,6 +3,7 @@
 | --- | --- |
 | [clusterProfiler](./RNA/clusterProfiler) | pathway enrichment analysis |
 | [debian_stretch-R](./debian_stretch-R) | R on debian-stretch |  
+| [heatmap](./R-Plot/Heatmap/) | Plot heatmap |
 | [limma](./RNA/limma) | DEG(differentially expressed genes) analysis |  
 | [PCA](./MultivariateAnalysis/PCA) | PCA |
 | [samtools](./BasicTools/samtools) | samtools + bedtools + bcftools |   
