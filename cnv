@@ -1,0 +1,7 @@
+FROM matthewee/debian_stretch-r:3.6.0
+MAINTAINER yzhang88 <yzhang88@outlook.com>
+
+LABEL version='v0.1.0' \
+      description="ExomeDepth environment"
+
+Run Rscript -e "BiocManager::install('ExomeDepth')"
